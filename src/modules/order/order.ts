@@ -20,9 +20,10 @@ export default class Order {
     let total = 0;
     this.orderItens.map((item) => {
       if (this.discount > 0) {
-        return (total += item.price - (item.price * this.discount) / 100);
+        total += item.price - (item.price * this.discount) / 100;
+      } else {
+        total += item.price;
       }
-      total += item.price;
     });
     return total;
   }
