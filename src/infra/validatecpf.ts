@@ -39,8 +39,7 @@ export default class Cpf {
     }
     const rest = total % 11;
 
-    const teste = rest < 2 ? 0 : 11 - rest;
-    return teste;
+    return rest < 2 ? 0 : 11 - rest;
   }
   cleanCpf(cpf: string) {
     return cpf
