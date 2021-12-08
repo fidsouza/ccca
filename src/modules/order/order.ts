@@ -1,26 +1,48 @@
 import Cpf from '../../infra/validatecpf';
+import Coupon from './coupon';
+import DefaultFreight from './defaultFreight';
+import Freight from './freightCalculator';
+import Item from './item';
+import OrderItem from './orderItem';
+
 export default class Order {
-  private orderItens: any[];
+  private orderItens: OrderItem[];
+  private coupon: Coupon | undefined;
+  private freight: number;
   cpf: Cpf;
-  discount: number;
 
-  constructor(cpf: string, discount?: number) {
+  constructor(
+    cpf: string,
+    readonly issueDate: Date,
+    readonly freighCalculator: Freight = new DefaultFreight()
+  ) {
     this.cpf = new Cpf(cpf);
-    this.discount = discount || 0;
     this.orderItens = [];
+    this.freight = 0;
   }
 
-  addItem(description: string, price: number, quantity: number) {
-    this.orderItens.push({ description, price, quantity });
+  addItem(Item: Item, quantity: number) {
+    this.freight += this.freighCalculator.calculate(Item);
+    this.orderItens.push(new OrderItem(Item.price, quantity));
   }
+
+  getFreight() {
+    return Math.round(this.freight);
+  }
+
+  addCoupon(coupon: Coupon) {
+    if (coupon.isExpired(this.issueDate)) return;
+    this.coupon = coupon;
+  }
+
   totalItems() {
     return this.orderItens.length;
   }
   getTotal() {
     let total = 0;
     this.orderItens.map((item) => {
-      if (this.discount > 0) {
-        total += item.price - (item.price * this.discount) / 100;
+      if (this.coupon) {
+        total += item.price - (item.price * this.coupon.discount) / 100;
       } else {
         total += item.price;
       }
