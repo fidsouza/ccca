@@ -1,5 +1,4 @@
 import Coupon from './coupon';
-import DefaultFreight from './defaultFreight';
 import Item from './item';
 import Order from './order';
 
@@ -46,5 +45,19 @@ describe('Order tests', () => {
     );
     const freight = newOrder.getFreight();
     expect(freight).toBe(30);
+  });
+
+  test('Deve fazer um pedido com codigo', () => {
+    const newOrder = new Order(validCpf, new Date('2021-12-12'));
+    newOrder.addItem(new Item(1, 'INSTRUMENTO', desc, price), quantity);
+    newOrder.addItem(
+      new Item(2, 'INSTRUMENTO', desc, price, 20, 16, 22, 2),
+      quantity
+    );
+    newOrder.addItem(
+      new Item(3, 'INSTRUMENTO', desc, price, 11, 8, 17, 1),
+      quantity
+    );
+    expect(newOrder.code.orderCode).toBe('202100000001');
   });
 });
