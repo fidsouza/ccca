@@ -1,6 +1,5 @@
 import Item from '../../../domain/entity/item';
 import ItemRepositoryDatabase from '../../../infra/repository/database/itemRepositoryDatabase';
-import ItemRepositoryMemory from '../../../infra/repository/memory/ItemRepositoryMemory';
 import SimulateFreightInput from './dto/SimulateFreightInput';
 import SimulateFreight from './SimulateFreight';
 import MysqlConnectionAdapter from '../../../infra/database/ConnectionMysql';
@@ -21,7 +20,10 @@ test('Simular um frete de itens', async () => {
 });
 
 test('Deve retornar um erro caso ao simular um frete de item que não existe.', async () => {
-  const itemRepository = new ItemRepositoryMemory();
+  const itemRepository = new ItemRepositoryDatabase(
+    ItemModel,
+    new MysqlConnectionAdapter()
+  );
   const item1 = new Item(6, 'DVD', 'LAGOA AZUL', 20);
   const item2 = new Item(7, 'DVD', 'BATMAN', 10);
   const items = [item1, item2];

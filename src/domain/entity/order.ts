@@ -1,3 +1,4 @@
+import { ValidationErrorItem } from 'sequelize/types';
 import Cpf from '../../infra/validatecpf';
 import Coupon from './coupon';
 import DefaultFreight from './defaultFreight';
@@ -48,7 +49,7 @@ export default class Order {
       if (this.coupon) {
         total += item.price - (item.price * this.coupon.discount) / 100;
       } else {
-        total += item.price;
+        total += +item.price * +item.quantity;
       }
     });
     return total;

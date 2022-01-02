@@ -10,7 +10,7 @@ export default class ItemRepositoryDatabase implements ItemRepository {
     readonly itemModel: typeof ModelInstance = ItemModel,
     readonly connection: MysqlConnectionAdapter
   ) {
-    this.connection = new MysqlConnectionAdapter();
+    this.connection = connection;
     this.itemModel = itemModel;
   }
   async findById(idItem: number): Promise<Item | undefined> {
