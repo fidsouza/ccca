@@ -1,28 +1,25 @@
 import MysqlConnectionAdapter from '../../../infra/database/ConnectionMysql';
-import ItemModel from '../../../infra/database/models/Item.model';
+import CouponRepositoryDatabase from '../../../infra/repository/database/CouponRepositoryDatabase';
 import ItemRepositoryDatabase from '../../../infra/repository/database/itemRepositoryDatabase';
-import CouponRepositoryMemory from '../../../infra/repository/memory/CouponRepositoryMemory';
-import ItemRepositoryMemory from '../../../infra/repository/memory/ItemRepositoryMemory';
-import OrderRepositoryMemory from '../../../infra/repository/memory/OrderRepositoryMemory';
+import OrderRepositoryDatabase from '../../../infra/repository/database/OrderRepositoryDatabase';
 import PlaceOrder from './PlaceOrder';
 
 let itemRepository: ItemRepositoryDatabase;
 let placeOrder: PlaceOrder;
-let couponRepository: CouponRepositoryMemory;
-let orderRepository: OrderRepositoryMemory;
+let couponRepository: CouponRepositoryDatabase;
+let orderRepository: OrderRepositoryDatabase;
+const connectionDb = new MysqlConnectionAdapter();
 
 beforeEach(async () => {
-  itemRepository = new ItemRepositoryDatabase(
-    ItemModel,
-    new MysqlConnectionAdapter()
-  );
-  couponRepository = new CouponRepositoryMemory();
-  orderRepository = new OrderRepositoryMemory();
+  itemRepository = new ItemRepositoryDatabase(connectionDb);
+  couponRepository = new CouponRepositoryDatabase(connectionDb);
+  orderRepository = new OrderRepositoryDatabase(connectionDb);
   placeOrder = new PlaceOrder(
     itemRepository,
     orderRepository,
     couponRepository
   );
+  await orderRepository.clear();
 });
 
 describe('Para criar um pedido', () => {
@@ -30,8 +27,8 @@ describe('Para criar um pedido', () => {
     const input = {
       cpf: '236.746.610-63',
       orderItems: [
-        { idItem: 1, quantity: 1 },
-        { idItem: 2, quantity: 3 }
+        { id_item: 1, quantity: 1 },
+        { id_item: 2, quantity: 3 }
       ],
       date: new Date('2021-12-10'),
       coupon: 'VALE20'
@@ -43,8 +40,8 @@ describe('Para criar um pedido', () => {
     const input = {
       cpf: '236.746.610-63',
       orderItems: [
-        { idItem: 1, quantity: 1 },
-        { idItem: 2, quantity: 3 }
+        { id_item: 1, quantity: 1 },
+        { id_item: 2, quantity: 3 }
       ],
       date: new Date('2021-12-10')
     };
@@ -55,8 +52,8 @@ describe('Para criar um pedido', () => {
     const input = {
       cpf: '236.746.610-63',
       orderItems: [
-        { idItem: 1, quantity: 1 },
-        { idItem: 2, quantity: 3 }
+        { id_item: 1, quantity: 1 },
+        { id_item: 2, quantity: 3 }
       ],
       date: new Date('2021-12-10')
     };

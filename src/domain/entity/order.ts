@@ -11,8 +11,8 @@ export default class Order {
   private orderItens: OrderItem[];
   private coupon: Coupon | undefined;
   private freight: number;
-  cpf: Cpf;
-  code: OrderCode;
+  private cpf: Cpf;
+  private code: OrderCode;
 
   constructor(
     cpf: string,
@@ -28,11 +28,27 @@ export default class Order {
 
   addItem(Item: Item, quantity: number) {
     this.freight += this.freighCalculator.calculate(Item);
-    this.orderItens.push(new OrderItem(Item.price, quantity));
+    this.orderItens.push(new OrderItem(Item.idItem, Item.price, quantity));
   }
 
   getFreight() {
     return Math.round(this.freight);
+  }
+
+  getOrder() {
+    return this.code.orderCode;
+  }
+
+  getCodeCoupon() {
+    return this.coupon?.code;
+  }
+
+  getCpf() {
+    return this.cpf.value;
+  }
+
+  getOrderItems() {
+    return this.orderItens;
   }
 
   addCoupon(coupon: Coupon) {
