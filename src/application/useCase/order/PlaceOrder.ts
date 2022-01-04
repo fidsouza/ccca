@@ -12,7 +12,7 @@ export default class PlaceOrder {
     readonly couponRepository: CouponRepository
   ) {}
   async execute(input: PlaceOrderInput): Promise<PlaceOrderOutput> {
-    const order = new Order(input.cpf, input.date);
+    const order = new Order(input.cpf, input.date, input.freight);
     for (const orderItem of input.orderItems) {
       const item = await this.itemRepository.findById(orderItem.id_item);
       if (!item) throw new Error('Item Not found');

@@ -23,7 +23,7 @@ export default class Order {
     this.cpf = new Cpf(cpf);
     this.orderItens = [];
     this.freight = 0;
-    this.code = new OrderCode(sequence);
+    this.code = new OrderCode(sequence, issueDate);
   }
 
   addItem(Item: Item, quantity: number) {

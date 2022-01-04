@@ -1,3 +1,4 @@
+import FixedFreightCalculator from '../../../domain/entity/fixedFreightCalculator';
 import MysqlConnectionAdapter from '../../../infra/database/ConnectionMysql';
 import CouponRepositoryDatabase from '../../../infra/repository/database/CouponRepositoryDatabase';
 import ItemRepositoryDatabase from '../../../infra/repository/database/itemRepositoryDatabase';
@@ -60,5 +61,17 @@ describe('Para criar um pedido', () => {
     const output = await placeOrder.execute(input);
     const total = output.freight ? output.freight + output.total : output.total;
     expect(total).toBe(200);
+  });
+
+  test('Deve gerar um pedido com frete fixo', async () => {
+    const input = {
+      cpf: '236.746.610-63',
+      orderItems: [{ id_item: 1, quantity: 1 }],
+      date: new Date('2021-12-10'),
+      freight: new FixedFreightCalculator()
+    };
+    const output = await placeOrder.execute(input);
+    const total = output.freight ? output.freight + output.total : output.total;
+    expect(total).toBe(40);
   });
 });

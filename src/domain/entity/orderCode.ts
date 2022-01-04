@@ -1,11 +1,11 @@
 export default class OrderCode {
   orderCode: string;
-  constructor(private sequence: number) {
+  constructor(private sequence: number, private year: Date) {
     this.orderCode = this.generateCode(this.sequence);
   }
 
   private generateCode(sequence: number) {
-    const year = new Date().getFullYear();
+    const year = new Date(this.year).getFullYear();
     const sequenceOrder = `${sequence}`.padStart(8, '0');
     return `${year}${sequenceOrder}`;
   }
