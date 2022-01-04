@@ -2,7 +2,7 @@ import Item from '../../../domain/entity/item';
 import ItemRepositoryDatabase from '../../../infra/repository/database/itemRepositoryDatabase';
 import SimulateFreightInput from './dto/SimulateFreightInput';
 import SimulateFreight from './SimulateFreight';
-import MysqlConnectionAdapter from '../../../infra/database/ConnectionMysql';
+import MysqlConnectionAdapter from '../../../infra/orm/ConnectionMysql';
 import DefaultFreight from '../../../domain/entity/defaultFreight';
 
 test('Simular um frete de itens', async () => {

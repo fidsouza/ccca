@@ -1,7 +1,7 @@
 import Coupon from '../../../domain/entity/coupon';
 import CouponRepository from '../../../domain/repository/CouponRepository';
-import MysqlConnectionAdapter from '../../database/ConnectionMysql';
-import CouponModel from '../../database/models/coupon.model';
+import MysqlConnectionAdapter from '../../orm/ConnectionMysql';
+import CouponModel from '../../orm/models/coupon.model';
 
 export default class CouponRepositoryDatabase implements CouponRepository {
   constructor(readonly connection: MysqlConnectionAdapter) {

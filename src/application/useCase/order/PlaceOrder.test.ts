@@ -1,5 +1,5 @@
 import FixedFreightCalculator from '../../../domain/entity/fixedFreightCalculator';
-import MysqlConnectionAdapter from '../../../infra/database/ConnectionMysql';
+import MysqlConnectionAdapter from '../../../infra/orm/ConnectionMysql';
 import CouponRepositoryDatabase from '../../../infra/repository/database/CouponRepositoryDatabase';
 import ItemRepositoryDatabase from '../../../infra/repository/database/itemRepositoryDatabase';
 import OrderRepositoryDatabase from '../../../infra/repository/database/OrderRepositoryDatabase';

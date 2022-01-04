@@ -1,8 +1,8 @@
 import order from '../../../domain/entity/order';
 import OrderRepository from '../../../domain/repository/OrderRepository';
-import MysqlConnectionAdapter from '../../database/ConnectionMysql';
-import OrderModel from '../../database/models/order.model';
-import OrderItemModel from '../../database/models/orderItem.model';
+import MysqlConnectionAdapter from '../../orm/ConnectionMysql';
+import OrderModel from '../../orm/models/order.model';
+import OrderItemModel from '../../orm/models/orderItem.model';
 
 export default class OrderRepositoryDatabase implements OrderRepository {
   constructor(readonly connection: MysqlConnectionAdapter) {

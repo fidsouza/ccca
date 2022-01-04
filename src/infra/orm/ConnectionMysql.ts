@@ -15,7 +15,7 @@ export default class MysqlConnectionAdapter implements Connection {
       username: process.env.DB_USER,
       password: process.env.DB_PASSWORD,
       port: +process.env.DB_PORT! || 3306,
-      dialect: process.env.DB_DIALECT as any,
+      dialect: (process.env.DB_DIALECT as any) || 'mysql',
       logging: false
     });
     this.addModels([ItemModel, CouponModel, OrderModel, OrderItemModel]);
