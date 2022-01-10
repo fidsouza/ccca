@@ -1,0 +1,27 @@
+# Use root/example as user/password credentials
+version: "3.1"
+
+services:
+
+  db:
+    image: mysql
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    ports:
+      - 3306:3306
+    environment:
+      - MYSQL_ROOT_PASSWORD=ccca
+      - MYSQL_USER=ccca
+      - MYSQL_PASSWORD=ccca
+      - MYSQL_DATABASE=test
+    volumes:
+      - mysqldata:/var/lib/mysql
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
+
+volumes:
+  mysqldata:
