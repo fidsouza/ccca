@@ -17,7 +17,7 @@ describe('Order tests', () => {
   });
   test('should be a order with invalid cpf', () => {
     const invalidCpf = '111.111.111-11';
-    expect(() => new Order(invalidCpf, new Date('2021-12-12')).cpf).toThrow(
+    expect(() => new Order(invalidCpf, new Date('2021-12-12'))).toThrow(
       new Error('Invalid CPF')
     );
   });
@@ -58,6 +58,6 @@ describe('Order tests', () => {
       new Item(3, 'INSTRUMENTO', desc, price, 11, 8, 17, 1),
       quantity
     );
-    expect(newOrder.code.orderCode).toBe('202100000001');
+    expect(newOrder.getOrder()).toBe('202100000001');
   });
 });

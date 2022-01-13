@@ -1,3 +1,4 @@
+import { ValidationErrorItem } from 'sequelize/types';
 import Cpf from '../../infra/validatecpf';
 import Coupon from './coupon';
 import DefaultFreight from './defaultFreight';
@@ -10,8 +11,8 @@ export default class Order {
   private orderItens: OrderItem[];
   private coupon: Coupon | undefined;
   private freight: number;
-  cpf: Cpf;
-  code: OrderCode;
+  private cpf: Cpf;
+  private code: OrderCode;
 
   constructor(
     cpf: string,
@@ -22,16 +23,32 @@ export default class Order {
     this.cpf = new Cpf(cpf);
     this.orderItens = [];
     this.freight = 0;
-    this.code = new OrderCode(sequence);
+    this.code = new OrderCode(sequence, issueDate);
   }
 
   addItem(Item: Item, quantity: number) {
     this.freight += this.freighCalculator.calculate(Item);
-    this.orderItens.push(new OrderItem(Item.price, quantity));
+    this.orderItens.push(new OrderItem(Item.idItem, Item.price, quantity));
   }
 
   getFreight() {
     return Math.round(this.freight);
+  }
+
+  getOrder() {
+    return this.code.orderCode;
+  }
+
+  getCodeCoupon() {
+    return this.coupon?.code;
+  }
+
+  getCpf() {
+    return this.cpf.value;
+  }
+
+  getOrderItems() {
+    return this.orderItens;
   }
 
   addCoupon(coupon: Coupon) {
@@ -48,7 +65,7 @@ export default class Order {
       if (this.coupon) {
         total += item.price - (item.price * this.coupon.discount) / 100;
       } else {
-        total += item.price;
+        total += +item.price * +item.quantity;
       }
     });
     return total;
