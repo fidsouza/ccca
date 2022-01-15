@@ -2,7 +2,7 @@ import Item from '../../../domain/entity/item';
 import ItemRepositoryDatabase from '../../../infra/repository/database/itemRepositoryDatabase';
 import SimulateFreightInput from './dto/SimulateFreightInput';
 import SimulateFreight from './SimulateFreight';
-import MysqlConnectionAdapter from '../../../infra/orm/ConnectionMysql';
+import MysqlConnectionAdapter from '../../../infra/database/orm/ConnectionMysql';
 import DefaultFreight from '../../../domain/entity/defaultFreight';
 
 test('Simular um frete de itens', async () => {
@@ -19,7 +19,7 @@ test('Simular um frete de itens', async () => {
   );
   const simulateFreightInput = new SimulateFreightInput(items);
   const freight = await simulateFreight.execute(simulateFreightInput);
-  expect(freight.amount).toBe(20);
+  expect(freight.amount).toBe(10);
 });
 
 test('Deve retornar um erro caso ao simular um frete de item que não existe.', async () => {

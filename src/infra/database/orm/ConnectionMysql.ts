@@ -4,6 +4,7 @@ import CouponModel from './models/coupon.model';
 import ItemModel from './models/Item.model';
 import OrderModel from './models/order.model';
 import OrderItemModel from './models/orderItem.model';
+import { test, development, production } from './config/database-config';
 
 export default class MysqlConnectionAdapter implements Connection {
   private mysql: Sequelize;
@@ -11,7 +12,10 @@ export default class MysqlConnectionAdapter implements Connection {
   constructor() {
     this.mysql = new Sequelize({
       host: process.env.DB_HOST,
-      database: process.env.DATABASE,
+      database:
+        process.env.NODE_ENV === 'test'
+          ? test.database
+          : development.database || production.database,
       username: process.env.DB_USER,
       password: process.env.DB_PASSWORD,
       port: +process.env.DB_PORT! || 3306,

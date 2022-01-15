@@ -12,7 +12,7 @@ interface OrderItemCreationAttributes
   extends Optional<OrderItemAttributtes, 'id_order' | 'id_item'> {}
 
 @Table({
-  tableName: 'order_item',
+  tableName: 'order_items',
   timestamps: false
 })
 export default class OrderItemModel extends Model<

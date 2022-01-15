@@ -15,7 +15,7 @@ interface ItemAttibutes {
 interface ItemCreationAttributes extends Optional<ItemAttibutes, 'id_item'> {}
 
 @Table({
-  tableName: 'item',
+  tableName: 'items',
   timestamps: false
 })
 export default class ItemModel extends Model<

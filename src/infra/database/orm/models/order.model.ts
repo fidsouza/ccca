@@ -15,7 +15,7 @@ interface OrderCreationAttributes
   extends Optional<OrderAttributtes, 'id_order'> {}
 
 @Table({
-  tableName: 'order',
+  tableName: 'orders',
   timestamps: false
 })
 export default class OrderModel extends Model<
@@ -23,6 +23,9 @@ export default class OrderModel extends Model<
   OrderCreationAttributes
 > {
   @Column({ primaryKey: true, autoIncrement: true })
+  id!: number;
+
+  @Column
   id_order!: number;
 
   @Column

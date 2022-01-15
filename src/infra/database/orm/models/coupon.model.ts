@@ -10,7 +10,7 @@ interface CouponAttributes {
 interface CouponCreationAttributes extends Optional<CouponAttributes, 'code'> {}
 
 @Table({
-  tableName: 'coupon',
+  tableName: 'coupons',
   timestamps: false
 })
 export default class CouponModel extends Model<

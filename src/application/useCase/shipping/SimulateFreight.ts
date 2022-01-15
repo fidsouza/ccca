@@ -1,4 +1,3 @@
-import DefaultFreight from '../../../domain/entity/defaultFreight';
 import Freight from '../../../domain/entity/freightCalculator';
 import ItemRepository from '../../../domain/repository/ItemRepository';
 import SimulateFreightInput from './dto/SimulateFreightInput';

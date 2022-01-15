@@ -1,5 +1,5 @@
 import FixedFreightCalculator from '../../../domain/entity/fixedFreightCalculator';
-import MysqlConnectionAdapter from '../../../infra/orm/ConnectionMysql';
+import MysqlConnectionAdapter from '../../../infra/database/orm/ConnectionMysql';
 import CouponRepositoryDatabase from '../../../infra/repository/database/CouponRepositoryDatabase';
 import ItemRepositoryDatabase from '../../../infra/repository/database/itemRepositoryDatabase';
 import OrderRepositoryDatabase from '../../../infra/repository/database/OrderRepositoryDatabase';
@@ -60,7 +60,7 @@ describe('Para criar um pedido', () => {
     };
     const output = await placeOrder.execute(input);
     const total = output.freight ? output.freight + output.total : output.total;
-    expect(total).toBe(200);
+    expect(total).toBe(190);
   });
 
   test('Deve gerar um pedido com frete fixo', async () => {
@@ -74,4 +74,8 @@ describe('Para criar um pedido', () => {
     const total = output.freight ? output.freight + output.total : output.total;
     expect(total).toBe(40);
   });
+});
+
+afterAll(async () => {
+  await orderRepository.clear();
 });

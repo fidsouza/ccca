@@ -17,11 +17,5 @@ services:
     volumes:
       - mysqldata:/var/lib/mysql
 
-  adminer:
-    image: adminer
-    restart: always
-    ports:
-      - 8080:8080
-
 volumes:
   mysqldata:

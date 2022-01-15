@@ -1,7 +1,7 @@
 import Item from '../../../domain/entity/item';
 import ItemRepository from '../../../domain/repository/ItemRepository';
-import MysqlConnectionAdapter from '../../orm/ConnectionMysql';
-import ItemModel from '../../orm/models/Item.model';
+import MysqlConnectionAdapter from '../../database/orm/ConnectionMysql';
+import ItemModel from '../../database/orm/models/Item.model';
 
 export default class ItemRepositoryDatabase implements ItemRepository {
   constructor(readonly connection: MysqlConnectionAdapter) {
