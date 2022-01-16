@@ -1,25 +1,17 @@
 import FixedFreightCalculator from '../../../domain/entity/fixedFreightCalculator';
 import MysqlConnectionAdapter from '../../../infra/database/orm/ConnectionMysql';
-import CouponRepositoryDatabase from '../../../infra/repository/database/CouponRepositoryDatabase';
-import ItemRepositoryDatabase from '../../../infra/repository/database/itemRepositoryDatabase';
 import OrderRepositoryDatabase from '../../../infra/repository/database/OrderRepositoryDatabase';
+import DatabaseRepositoryFactory from '../../../infra/repository/factory/DatabaseRepositoryFactory';
 import PlaceOrder from './PlaceOrder';
 
-let itemRepository: ItemRepositoryDatabase;
 let placeOrder: PlaceOrder;
-let couponRepository: CouponRepositoryDatabase;
 let orderRepository: OrderRepositoryDatabase;
 const connectionDb = new MysqlConnectionAdapter();
 
 beforeEach(async () => {
-  itemRepository = new ItemRepositoryDatabase(connectionDb);
-  couponRepository = new CouponRepositoryDatabase(connectionDb);
   orderRepository = new OrderRepositoryDatabase(connectionDb);
-  placeOrder = new PlaceOrder(
-    itemRepository,
-    orderRepository,
-    couponRepository
-  );
+  const repositoryFactory = new DatabaseRepositoryFactory(connectionDb);
+  placeOrder = new PlaceOrder(repositoryFactory);
   await orderRepository.clear();
 });
 
