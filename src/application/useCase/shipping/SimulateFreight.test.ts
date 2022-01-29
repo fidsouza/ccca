@@ -9,15 +9,16 @@ test('Simular um frete de itens', async () => {
   const itemRepository = new ItemRepositoryDatabase(
     new MysqlConnectionAdapter()
   );
-  const item1 = new Item(1, 'DVD', 'LAGOA AZUL', 20);
-  const item2 = new Item(2, 'DVD', 'BATMAN', 10);
-  const items = [item1, item2];
+
   const freightCalculator = new DefaultFreight();
   const simulateFreight = new SimulateFreight(
     itemRepository,
     freightCalculator
   );
-  const simulateFreightInput = new SimulateFreightInput(items);
+  const simulateFreightInput = new SimulateFreightInput([
+    { idItem: 1, quantity: 1 },
+    { idItem: 2, quantity: 1 }
+  ]);
   const freight = await simulateFreight.execute(simulateFreightInput);
   expect(freight.amount).toBe(10);
 });
@@ -26,11 +27,11 @@ test('Deve retornar um erro caso ao simular um frete de item que não existe.', 
   const itemRepository = new ItemRepositoryDatabase(
     new MysqlConnectionAdapter()
   );
-  const item1 = new Item(6, 'DVD', 'LAGOA AZUL', 20);
-  const item2 = new Item(7, 'DVD', 'BATMAN', 10);
-  const items = [item1, item2];
   const freightCalculator = new DefaultFreight();
-  const simulateFreightInput = new SimulateFreightInput(items);
+  const simulateFreightInput = new SimulateFreightInput([
+    { idItem: 6, quantity: 1 },
+    { idItem: 7, quantity: 1 }
+  ]);
   await expect(
     new SimulateFreight(itemRepository, freightCalculator).execute(
       simulateFreightInput

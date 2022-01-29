@@ -20,8 +20,8 @@ describe('Para criar um pedido', () => {
     const input = {
       cpf: '236.746.610-63',
       orderItems: [
-        { id_item: 1, quantity: 1 },
-        { id_item: 2, quantity: 3 }
+        { idItem: 1, quantity: 1 },
+        { idItem: 2, quantity: 3 }
       ],
       date: new Date('2021-12-10'),
       coupon: 'VALE20'
@@ -33,8 +33,8 @@ describe('Para criar um pedido', () => {
     const input = {
       cpf: '236.746.610-63',
       orderItems: [
-        { id_item: 1, quantity: 1 },
-        { id_item: 2, quantity: 3 }
+        { idItem: 1, quantity: 1 },
+        { idItem: 2, quantity: 3 }
       ],
       date: new Date('2021-12-10')
     };
@@ -45,8 +45,8 @@ describe('Para criar um pedido', () => {
     const input = {
       cpf: '236.746.610-63',
       orderItems: [
-        { id_item: 1, quantity: 1 },
-        { id_item: 2, quantity: 3 }
+        { idItem: 1, quantity: 1 },
+        { idItem: 2, quantity: 3 }
       ],
       date: new Date('2021-12-10')
     };
@@ -58,7 +58,7 @@ describe('Para criar um pedido', () => {
   test('Deve gerar um pedido com frete fixo', async () => {
     const input = {
       cpf: '236.746.610-63',
-      orderItems: [{ id_item: 1, quantity: 1 }],
+      orderItems: [{ idItem: 1, quantity: 1 }],
       date: new Date('2021-12-10'),
       freight: new FixedFreightCalculator()
     };

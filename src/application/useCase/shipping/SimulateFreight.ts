@@ -14,7 +14,7 @@ export default class SimulateFreight {
     for (const itemInput of input.items) {
       const item = await this.itemRepository.findById(itemInput.idItem);
       if (!item) throw new Error('Item not found');
-      freight += this.freightCalculator.calculate(item);
+      freight += this.freightCalculator.calculate(item) * itemInput.quantity;
     }
     return new SimulateFreightOutPut(freight);
   }

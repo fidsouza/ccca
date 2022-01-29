@@ -19,10 +19,10 @@ export default class OrderItemModel extends Model<
   OrderItemAttributtes,
   OrderItemCreationAttributes
 > {
-  @Column({ primaryKey: true, autoIncrement: true })
+  @Column({ primaryKey: true })
   id_order!: number;
 
-  @Column
+  @Column({ primaryKey: true })
   id_item!: number;
 
   @Column

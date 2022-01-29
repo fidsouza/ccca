@@ -1,4 +1,4 @@
+.env
 .husky
-.env
 node_modules
-.env
+build

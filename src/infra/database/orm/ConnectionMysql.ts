@@ -1,3 +1,4 @@
+require('dotenv').config();
 import { Sequelize, ModelCtor, Model } from 'sequelize-typescript';
 import Connection from './Connection';
 import CouponModel from './models/coupon.model';

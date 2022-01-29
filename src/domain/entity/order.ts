@@ -1,5 +1,4 @@
-import { ValidationErrorItem } from 'sequelize/types';
-import Cpf from '../../infra/validatecpf';
+import Cpf from './validatecpf';
 import Coupon from './coupon';
 import DefaultFreight from './defaultFreight';
 import Freight from './freightCalculator';
