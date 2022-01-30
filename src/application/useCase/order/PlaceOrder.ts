@@ -5,18 +5,23 @@ import OrderRepository from '../../../domain/repository/OrderRepository';
 import repositoryFactory from '../../../domain/factory/RepositoryFactory';
 import PlaceOrderInput from './dto/PlaceOrderInput';
 import PlaceOrderOutput from './dto/PlaceOrderOutput';
+import Freight from '../../../domain/entity/freightCalculator';
+import DefaultFreight from '../../../domain/entity/defaultFreight';
 
 export default class PlaceOrder {
   itemRepository: ItemRepository;
   couponRepository: CouponRepository;
   orderRepository: OrderRepository;
-  constructor(readonly repositoryFactory: repositoryFactory) {
+  constructor(
+    readonly repositoryFactory: repositoryFactory,
+    readonly freightCalculator: Freight = new DefaultFreight()
+  ) {
     this.couponRepository = repositoryFactory.createCouponRepository();
     this.itemRepository = repositoryFactory.createItemRepository();
     this.orderRepository = repositoryFactory.createOrderRepository();
   }
   async execute(input: PlaceOrderInput): Promise<PlaceOrderOutput> {
-    const order = new Order(input.cpf, input.date, input.freight);
+    const order = new Order(input.cpf, input.date, this.freightCalculator);
     for (const orderItem of input.orderItems) {
       const item = await this.itemRepository.findById(orderItem.idItem);
       if (!item) throw new Error('Item Not found');

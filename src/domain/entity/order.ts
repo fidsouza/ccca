@@ -26,7 +26,7 @@ export default class Order {
   }
 
   addItem(Item: Item, quantity: number) {
-    this.freight += this.freighCalculator.calculate(Item);
+    this.freight += this.freighCalculator.calculate(Item) * quantity;
     this.orderItens.push(new OrderItem(Item.idItem, Item.price, quantity));
   }
 

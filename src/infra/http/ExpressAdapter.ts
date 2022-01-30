@@ -21,8 +21,13 @@ export default class ExpressAdapter implements Http {
   }
   on(url: string, method: string, fn: any): void {
     this.app[method](url, async function (req: Request, res: Response) {
-      const output = await fn(req.params, req.body);
-      return res.json(output);
+      try {
+        const output = await fn(req.params, req.body);
+        return res.status(201).json(output);
+      } catch (error: any) {
+        console.log(error);
+        return res.status(422).json({ Error: error.message });
+      }
     });
   }
   listen(port: number): void {
