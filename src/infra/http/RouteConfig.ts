@@ -1,6 +1,8 @@
+import GetOrder from '../../application/useCase/order/GetOrder';
 import SimulateFreight from '../../application/useCase/shipping/SimulateFreight';
 import DefaultFreight from '../../domain/entity/defaultFreight';
 import RepositoryFactory from '../../domain/factory/RepositoryFactory';
+import GetOrderController from '../controller/GerOrderController';
 import PlaceOrderController from '../controller/PlaceOrderController';
 import Http from './Http';
 
@@ -21,5 +23,9 @@ export default class RouteConfig {
         return simulateFreight.execute(body);
       }
     );
+    http.on('/orders/:code', 'get', async function (params: any, body: any) {
+      const getOrderController = new GetOrderController();
+      return getOrderController.execute(params, body, repositoryFactory);
+    });
   }
 }

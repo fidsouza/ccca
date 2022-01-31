@@ -1,5 +1,5 @@
 export default class OrderCode {
-  orderCode: string;
+  readonly orderCode: string;
   constructor(private sequence: number, private year: Date) {
     this.orderCode = this.generateCode(this.sequence);
   }

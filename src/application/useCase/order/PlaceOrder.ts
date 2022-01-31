@@ -31,10 +31,12 @@ export default class PlaceOrder {
       const coupon = await this.couponRepository.findByCode(input.coupon);
       if (coupon) order.addCoupon(coupon);
     }
+
     await this.orderRepository.save(order);
     const total = order.getTotal();
     const freight = order.getFreight();
-    const output = new PlaceOrderOutput(total, freight);
+    const code = order.getOrder();
+    const output = new PlaceOrderOutput(code, total, freight);
     return output;
   }
 }

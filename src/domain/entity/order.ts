@@ -62,7 +62,7 @@ export default class Order {
     let total = 0;
     this.orderItens.map((item) => {
       if (this.coupon) {
-        total += item.price - (item.price * this.coupon.discount) / 100;
+        total += item.price * item.quantity - this.coupon.discount;
       } else {
         total += +item.price * +item.quantity;
       }

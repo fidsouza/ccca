@@ -1,3 +1,7 @@
 export default class PlaceOrderOutput {
-  constructor(readonly total: number, readonly freight?: number) {}
+  constructor(
+    readonly code: string,
+    readonly total: number,
+    readonly freight?: number
+  ) {}
 }

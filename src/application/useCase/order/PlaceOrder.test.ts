@@ -27,7 +27,7 @@ describe('Para criar um pedido', () => {
       coupon: 'VALE20'
     };
     const output = await placeOrder.execute(input);
-    expect(output.total).toBe(64);
+    expect(output.total).toBe(140);
   });
   test('Deve gerar um pedido sem cupom', async () => {
     const input = {
