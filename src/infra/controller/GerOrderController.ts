@@ -1,9 +1,10 @@
-import GetOrder from '../../application/useCase/order/GetOrder';
-import RepositoryFactory from '../../domain/factory/RepositoryFactory';
+import OrderDAO from '../../application/dao/OrderDAO';
+import GetOrder from '../../application/query/GetOrder';
 
 export default class GetOrderController {
-  execute(params: any, body: any, repositoryFactory: RepositoryFactory) {
-    const getOrder = new GetOrder(repositoryFactory);
+  constructor(readonly orderDAO: OrderDAO) {}
+  execute(params: any, body: any) {
+    const getOrder = new GetOrder(this.orderDAO);
     return getOrder.execute(params.code);
   }
 }
